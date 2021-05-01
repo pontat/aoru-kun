@@ -6,4 +6,4 @@ COPY --from=node:14.16.1 /usr/local/bin /usr/local/bin
 COPY --from=node:14.16.1 /usr/local/lib /usr/local/lib
 
 RUN apt-get update && apt-get install -y zip unzip && \
-    docker-php-ext-install pdo pdo_mysql
+    docker-php-ext-install pdo pdo_mysql sockets
