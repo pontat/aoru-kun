@@ -14,7 +14,12 @@
                         <h3 class="text-lg font-bold text-gray-800 leading-tight">
                             {{ task.name }}
                         </h3>
-                        <task-button color="green" class="ml-2 min-w-max" @click="toggleEditForm(task.id)">
+                        <task-button
+                            color="bg-green-600"
+                            hoverColor="hover:bg-green-500"
+                            class="ml-2 min-w-max"
+                            @click="toggleEditForm(task.id)"
+                        >
                             編集
                         </task-button>
                     </template>
@@ -24,7 +29,12 @@
                             class="w-full focus:ring-blue-500 focus:border-blue-500 shadow-sm border-gray-300 rounded"
                             v-model="task.name"
                         />
-                        <task-button color="indigo" class="ml-2 min-w-max" @click="updateTask(task)">
+                        <task-button
+                            color="bg-indigo-600"
+                            hoverColor="hover:bg-indigo-500"
+                            class="ml-2 min-w-max"
+                            @click="updateTask(task)"
+                        >
                             保存
                         </task-button>
                     </template>
@@ -39,20 +49,31 @@
                     />
                 </div>
                 <div class="p-4 bg-gray-50 flex justify-between">
-                    <task-button color="red" @click="toggleNewForm(false)">キャンセル</task-button>
-                    <task-button color="indigo" @click="createTask()">登録</task-button>
+                    <task-button color="bg-red-600" hoverColor="hover:bg-red-500" @click="toggleNewForm(false)">
+                        キャンセル
+                    </task-button>
+                    <task-button color="bg-indigo-600" hoverColor="hover:bg-indigo-500" @click="createTask()">
+                        登録
+                    </task-button>
                 </div>
             </div>
             <div class="flex my-6" v-show="!isNewFormShow">
-                <task-button color="indigo" class="w-full mx-2" @click="toggleNewForm(true)">やる気追加</task-button>
+                <task-button
+                    color="bg-indigo-600"
+                    hoverColor="hover:bg-indigo-500"
+                    class="w-full mx-2"
+                    @click="toggleNewForm(true)"
+                >
+                    やる気追加
+                </task-button>
             </div>
         </main>
     </div>
 </template>
 
 <script>
-import TaskButton from '../components/task/Button.vue'
-import TaskLinkButton from '../components/task/LinkButton.vue'
+import TaskButton from '../components/task/Button'
+import TaskLinkButton from '../components/task/LinkButton'
 
 export default {
     components: { TaskButton, TaskLinkButton },
