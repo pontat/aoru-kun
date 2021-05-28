@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import BreezeApplicationLogo from '@/Components/ApplicationLogo'
+import BreezeApplicationLogo from '../components/ApplicationLogo'
 
 export default {
     components: {

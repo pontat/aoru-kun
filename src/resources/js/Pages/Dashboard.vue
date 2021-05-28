@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
+import BreezeAuthenticatedLayout from '../Layouts/Authenticated'
 
 export default {
     components: {

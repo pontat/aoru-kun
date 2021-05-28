@@ -48,11 +48,11 @@
 </template>
 
 <script>
-import BreezeButton from '@/Components/Button'
-import BreezeGuestLayout from '@/Layouts/Guest'
-import BreezeInput from '@/Components/Input'
-import BreezeLabel from '@/Components/Label'
-import BreezeValidationErrors from '@/Components/ValidationErrors'
+import BreezeButton from '../../components/Button'
+import BreezeGuestLayout from '../../Layouts/Guest'
+import BreezeInput from '../../components/Input'
+import BreezeLabel from '../../components/Label'
+import BreezeValidationErrors from '../../components/ValidationErrors'
 
 export default {
     layout: BreezeGuestLayout,

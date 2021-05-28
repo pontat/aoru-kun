@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import BreezeButton from '@/Components/Button'
-import BreezeGuestLayout from '@/Layouts/Guest'
+import BreezeButton from '../../components/Button'
+import BreezeGuestLayout from '../../Layouts/Guest'
 
 export default {
     layout: BreezeGuestLayout,
