@@ -8,65 +8,72 @@
         </header>
         <!-- Page Content -->
         <main>
-            <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in tasks" :key="task.id">
-                <div class="p-4 flex items-center justify-between">
-                    <template v-if="!task.is_edit">
-                        <h3 class="text-lg font-bold text-gray-800 leading-tight">
-                            {{ task.name }}
-                        </h3>
-                        <task-button
-                            color="bg-green-600"
-                            hoverColor="hover:bg-green-500"
-                            class="ml-2 min-w-max"
-                            @click="toggleEditForm(task.id)"
-                        >
-                            編集
-                        </task-button>
-                    </template>
-                    <template v-if="task.is_edit">
+            <template v-if="!loading">
+                <div class="mt-6 flex justify-center">
+                    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+                </div>
+            </template>
+            <template v-else>
+                <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in tasks" :key="task.id">
+                    <div class="p-4 flex items-center justify-between">
+                        <template v-if="!task.is_edit">
+                            <h3 class="text-lg font-bold text-gray-800 leading-tight">
+                                {{ task.name }}
+                            </h3>
+                            <task-button
+                                color="bg-green-600"
+                                hoverColor="hover:bg-green-500"
+                                class="ml-2 min-w-max"
+                                @click="toggleEditForm(task.id)"
+                            >
+                                編集
+                            </task-button>
+                        </template>
+                        <template v-if="task.is_edit">
+                            <input
+                                type="text"
+                                class="w-full focus:ring-blue-500 focus:border-blue-500 shadow-sm border-gray-300 rounded"
+                                v-model="task.name"
+                            />
+                            <task-button
+                                color="bg-indigo-600"
+                                hoverColor="hover:bg-indigo-500"
+                                class="ml-2 min-w-max"
+                                @click="updateTask(task)"
+                            >
+                                保存
+                            </task-button>
+                        </template>
+                    </div>
+                </div>
+                <div class="mx-2 mt-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
+                    <div class="p-4 bg-white space-y-6">
                         <input
                             type="text"
                             class="w-full focus:ring-blue-500 focus:border-blue-500 shadow-sm border-gray-300 rounded"
-                            v-model="task.name"
+                            v-model="name"
                         />
-                        <task-button
-                            color="bg-indigo-600"
-                            hoverColor="hover:bg-indigo-500"
-                            class="ml-2 min-w-max"
-                            @click="updateTask(task)"
-                        >
-                            保存
+                    </div>
+                    <div class="p-4 bg-gray-50 flex justify-between">
+                        <task-button color="bg-red-600" hoverColor="hover:bg-red-500" @click="toggleNewForm(false)">
+                            キャンセル
                         </task-button>
-                    </template>
+                        <task-button color="bg-indigo-600" hoverColor="hover:bg-indigo-500" @click="createTask()">
+                            登録
+                        </task-button>
+                    </div>
                 </div>
-            </div>
-            <div class="mx-2 mt-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
-                <div class="p-4 bg-white space-y-6">
-                    <input
-                        type="text"
-                        class="w-full focus:ring-blue-500 focus:border-blue-500 shadow-sm border-gray-300 rounded"
-                        v-model="name"
-                    />
-                </div>
-                <div class="p-4 bg-gray-50 flex justify-between">
-                    <task-button color="bg-red-600" hoverColor="hover:bg-red-500" @click="toggleNewForm(false)">
-                        キャンセル
-                    </task-button>
-                    <task-button color="bg-indigo-600" hoverColor="hover:bg-indigo-500" @click="createTask()">
-                        登録
+                <div class="flex my-6" v-show="!isNewFormShow">
+                    <task-button
+                        color="bg-indigo-600"
+                        hoverColor="hover:bg-indigo-500"
+                        class="w-full mx-2"
+                        @click="toggleNewForm(true)"
+                    >
+                        やる気追加
                     </task-button>
                 </div>
-            </div>
-            <div class="flex my-6" v-show="!isNewFormShow">
-                <task-button
-                    color="bg-indigo-600"
-                    hoverColor="hover:bg-indigo-500"
-                    class="w-full mx-2"
-                    @click="toggleNewForm(true)"
-                >
-                    やる気追加
-                </task-button>
-            </div>
+            </template>
         </main>
     </div>
 </template>
@@ -81,15 +88,27 @@ export default {
     props: { auth: Object, errors: Object, liffId: String },
 
     async mounted() {
-        await liff.init({ liffId: this.liffId })
-        if (!liff.isLoggedIn()) liff.login()
-        const profile = await liff.getProfile()
-        this.lineUser = await axios.get(`api/lineUsers/${profile.userId}`).then((response) => response.data)
-        this.tasks = await axios.get(`api/tasks/${this.lineUser.id}`).then((response) => response.data)
+        try {
+            await liff.init({ liffId: this.liffId })
+            if (!liff.isLoggedIn()) liff.login()
+            const profile = await liff.getProfile()
+
+            this.lineUser = await axios.get(`api/lineUsers/${profile.userId}`).then((response) => response.data)
+            if (!this.lineUser) {
+                this.lineUser = await axios.post(`api/lineUsers`, profile).then((response) => response.data)
+            }
+
+            this.tasks = await axios.get(`api/tasks/${this.lineUser.id}`).then((response) => response.data)
+        } catch (error) {
+            alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！')
+        } finally {
+            this.loading = true
+        }
     },
 
     data() {
         return {
+            loading: false,
             lineUser: {},
             tasks: [],
             isNewFormShow: false,
@@ -142,3 +161,29 @@ export default {
     },
 }
 </script>
+
+<style>
+.loader {
+    border-top-color: #3498db;
+    -webkit-animation: spinner 1.5s linear infinite;
+    animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>

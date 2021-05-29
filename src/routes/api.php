@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/webhook', WebhookController::class);
 
 Route::get('/lineUsers/{lineId}', [LineUserController::class, 'findByLineId']);
+Route::post('/lineUsers', [LineUserController::class, 'create']);
 
 Route::get('/tasks/{lineUserId}', [TaskController::class, 'findAllBylineUserId']);
 Route::post('/tasks', [TaskController::class, 'create']);
