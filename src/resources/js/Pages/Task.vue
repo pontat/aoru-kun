@@ -8,7 +8,7 @@
         </header>
         <!-- Page Content -->
         <main>
-            <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in setTasks" :key="task.id">
+            <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in tasks" :key="task.id">
                 <div class="p-4 flex items-center justify-between">
                     <template v-if="!task.is_edit">
                         <h3 class="text-lg font-bold text-gray-800 leading-tight">
@@ -82,17 +82,15 @@ export default {
 
     async mounted() {
         await liff.init({ liffId: this.liffId })
-        if (!liff.isLoggedIn()) {
-            liff.login()
-        }
+        if (!liff.isLoggedIn()) liff.login()
         const profile = await liff.getProfile()
         const lineUser = await axios.get(`api/lineUsers/${profile.userId}`)
-        const tasks = await axios.get(`api/tasks`)
+        this.tasks = await axios.get(`api/tasks`).then((response) => response.data)
     },
 
     data() {
         return {
-            setTasks: [],
+            tasks: [],
             isNewFormShow: false,
             name: '',
         }
@@ -100,7 +98,7 @@ export default {
 
     methods: {
         toggleEditForm(taskId) {
-            const task = this.setTasks.find((task) => task.id === taskId)
+            const task = this.tasks.find((task) => task.id === taskId)
             task.is_edit = true
         },
 
@@ -116,7 +114,7 @@ export default {
                 .post('api/tasks', { line_user_id: 14, name: this.name })
                 .catch((error) => alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！'))
 
-            this.setTasks = [...this.setTasks, task.data]
+            this.tasks = [...this.tasks, task.data]
             this.name = ''
             this.isNewFormShow = false
         },
@@ -129,7 +127,7 @@ export default {
                 .post(`api/tasks/${editTask.id}`, { line_user_id: 14, name: editTask.name })
                 .catch((error) => alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！'))
 
-            const setTask = this.setTasks.find((setTask) => setTask.id === task.data.id)
+            const setTask = this.tasks.find((setTask) => setTask.id === task.data.id)
             setTask.name = task.data.name
             setTask.is_edit = false
         },

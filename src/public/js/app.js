@@ -17090,7 +17090,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var profile, lineUser, tasks;
+      var profile, lineUser;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -17101,10 +17101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
             case 2:
-              if (!liff.isLoggedIn()) {
-                liff.login();
-              }
-
+              if (!liff.isLoggedIn()) liff.login();
               _context.next = 5;
               return liff.getProfile();
 
@@ -17116,10 +17113,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 8:
               lineUser = _context.sent;
               _context.next = 11;
-              return axios.get("api/tasks");
+              return axios.get("api/tasks").then(function (response) {
+                return response.data;
+              });
 
             case 11:
-              tasks = _context.sent;
+              _this.tasks = _context.sent;
 
             case 12:
             case "end":
@@ -17131,14 +17130,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      setTasks: [],
+      tasks: [],
       isNewFormShow: false,
       name: ''
     };
   },
   methods: {
     toggleEditForm: function toggleEditForm(taskId) {
-      var task = this.setTasks.find(function (task) {
+      var task = this.tasks.find(function (task) {
         return task.id === taskId;
       });
       task.is_edit = true;
@@ -17175,7 +17174,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 task = _context2.sent;
-                _this2.setTasks = [].concat(_toConsumableArray(_this2.setTasks), [task.data]);
+                _this2.tasks = [].concat(_toConsumableArray(_this2.tasks), [task.data]);
                 _this2.name = '';
                 _this2.isNewFormShow = false;
 
@@ -17216,7 +17215,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 task = _context3.sent;
-                setTask = _this3.setTasks.find(function (setTask) {
+                setTask = _this3.tasks.find(function (setTask) {
                   return setTask.id === task.data.id;
                 });
                 setTask.name = task.data.name;
@@ -18562,7 +18561,7 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_task_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("task-button");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Heading "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("main", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.setTasks, function (task) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Heading "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("main", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.tasks, function (task) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
       "class": "mx-2 mt-6 bg-white shadow rounded overflow-hidden",
       key: task.id
