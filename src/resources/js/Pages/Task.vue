@@ -78,10 +78,16 @@ import TaskLinkButton from '../components/task/LinkButton'
 export default {
     components: { TaskButton, TaskLinkButton },
 
-    props: { auth: Object, errors: Object, tasks: Array },
+    props: { auth: Object, errors: Object, liffId: String },
 
-    mounted() {
-        this.setTasks = this.tasks
+    async mounted() {
+        await liff.init({ liffId: this.liffId })
+        if (!liff.isLoggedIn()) {
+            liff.login()
+        }
+        const profile = await liff.getProfile()
+        const lineUser = await axios.get(`api/lineUsers/${profile.userId}`)
+        const tasks = await axios.get(`api/tasks`)
     },
 
     data() {

@@ -10,6 +10,14 @@ class TaskController extends Controller
 {
     public function index()
     {
+        return Inertia::render(
+            'Task',
+            ['liffId' => env('LINE_LIFF_ID')]
+        );
+    }
+
+    public function findAll(): array
+    {
         $tasks = Task::all();
 
         $formatTasks = [];
@@ -22,10 +30,7 @@ class TaskController extends Controller
             ];
         }
 
-        return Inertia::render(
-            'Task',
-            ['tasks' => $formatTasks]
-        );
+        return $formatTasks;
     }
 
     public function create(Request $request): Task
