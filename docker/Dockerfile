@@ -9,18 +9,8 @@ COPY --from=node:14.16.1 /usr/local/lib /usr/local/lib
 
 EXPOSE 8080
 WORKDIR /var/www/
-COPY ./src /var/www/
 
-RUN composer install
-RUN php artisan key:generate  \
-    && php artisan config:cache \
-    && php artisan view:cache
-
-RUN npm install && npm run watch
-
-COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY /src/.env.example /var/www/.env
-RUN chmod 777 -R /var/www/storage/ && \
-    echo "Listen 8080" >> /etc/apache2/ports.conf && \
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "Listen 8080" >> /etc/apache2/ports.conf && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
