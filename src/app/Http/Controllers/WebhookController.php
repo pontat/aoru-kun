@@ -24,6 +24,9 @@ class WebhookController extends Controller
         $httpClient = new CurlHTTPClient(env('LINE_ACCESS_TOKEN'));
         $bot = new LINEBot($httpClient, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
 
+        if (!array_key_exists('HTTP_' . HTTPHeader::LINE_SIGNATURE, $_SERVER)) {
+            abort(400);
+        };
         $signature = $_SERVER['HTTP_' . HTTPHeader::LINE_SIGNATURE];
         if (!SignatureValidator::validateSignature($request->getContent(), env('LINE_CHANNEL_SECRET'), $signature)) {
             abort(400);
