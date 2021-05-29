@@ -18550,7 +18550,7 @@ var _hoisted_1 = {
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("header", {
-  "class": "bg-indigo-600 shadow"
+  "class": "bg-yellow-500 shadow"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "mx-auto py-6 px-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
@@ -18582,7 +18582,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 保存 ");
 
 var _hoisted_9 = {
-  "class": "mx-2 mt-6 shadow rounded overflow-hidden"
+  "class": "mx-2 my-6 shadow rounded overflow-hidden"
 };
 var _hoisted_10 = {
   "class": "p-4 bg-white space-y-6"

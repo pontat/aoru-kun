@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen bg-gray-100">
         <!-- Page Heading -->
-        <header class="bg-indigo-600 shadow">
+        <header class="bg-yellow-500 shadow">
             <div class="mx-auto py-6 px-4">
                 <h2 class="font-semibold text-xl text-white leading-tight">今日のやる気リスト</h2>
             </div>
@@ -46,7 +46,7 @@
                         </template>
                     </div>
                 </div>
-                <div class="mx-2 mt-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
+                <div class="mx-2 my-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
                     <div class="p-4 bg-white space-y-6">
                         <input
                             type="text"
