@@ -17131,7 +17131,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 14:
               _context.next = 16;
-              return axios.get("api/tasks/".concat(_this.lineUser.id)).then(function (response) {
+              return axios.get("api/tasks/lineUsers/".concat(_this.lineUser.id)).then(function (response) {
                 return response.data;
               });
 

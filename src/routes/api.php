@@ -20,6 +20,6 @@ Route::post('/webhook', WebhookController::class);
 Route::get('/lineUsers/{lineId}', [LineUserController::class, 'findByLineId']);
 Route::post('/lineUsers', [LineUserController::class, 'create']);
 
-Route::get('/tasks/{lineUserId}', [TaskController::class, 'findAllBylineUserId']);
+Route::get('/tasks/lineUsers/{lineUserId}', [TaskController::class, 'findAllBylineUserId']);
 Route::post('/tasks', [TaskController::class, 'create']);
 Route::post('/tasks/{id}', [TaskController::class, 'update']);

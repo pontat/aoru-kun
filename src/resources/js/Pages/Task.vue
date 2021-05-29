@@ -97,7 +97,7 @@ export default {
                 this.lineUser = await axios.post(`api/lineUsers`, profile).then((response) => response.data)
             }
 
-            this.tasks = await axios.get(`api/tasks/${this.lineUser.id}`).then((response) => response.data)
+            this.tasks = await axios.get(`api/tasks/lineUsers/${this.lineUser.id}`).then((response) => response.data)
         } catch (error) {
             alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！')
         } finally {
