@@ -9,5 +9,5 @@ class LineUser extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['line_id', 'display_name'];
+    protected $fillable = ['line_id', 'display_name', 'picture_url'];
 }

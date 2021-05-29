@@ -17,6 +17,7 @@ class CreateLineUsersTable extends Migration
             $table->id();
             $table->string('line_id')->unique();
             $table->string('display_name');
+            $table->string('picture_url');
             $table->timestamps();
         });
     }

@@ -28,6 +28,7 @@ class FollowEventService
         $lineUser->fill([
             'line_id' => $lineId,
             'display_name' => $profile['displayName'],
+            'picture_url' => $profile['pictureUrl'],
         ])->save();
 
         return $lineUser->display_name . 'さん初めまして！！';
