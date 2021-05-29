@@ -28,7 +28,7 @@ class TaskController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function create(Request $request): Task
     {
         $taskParams = $this->setTaskParams($request);
 
@@ -38,7 +38,7 @@ class TaskController extends Controller
         return $task;
     }
 
-    public function update(Request $request, int $taskId)
+    public function update(Request $request, int $taskId): Task
     {
         $taskParams = $this->setTaskParams($request);
 

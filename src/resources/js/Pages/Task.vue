@@ -107,7 +107,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post('tasks', { line_user_id: 14, name: this.name })
+                .post('api/tasks', { line_user_id: 14, name: this.name })
                 .catch((error) => alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！'))
 
             this.setTasks = [...this.setTasks, task.data]
@@ -120,7 +120,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post(`tasks/${editTask.id}`, { line_user_id: 14, name: editTask.name })
+                .post(`api/tasks/${editTask.id}`, { line_user_id: 14, name: editTask.name })
                 .catch((error) => alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！'))
 
             const setTask = this.setTasks.find((setTask) => setTask.id === task.data.id)
