@@ -1,9 +1,9 @@
 <template>
     <div class="min-h-screen bg-gray-100">
         <!-- Page Heading -->
-        <header class="bg-white shadow">
+        <header class="bg-indigo-600 shadow">
             <div class="mx-auto py-6 px-4">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">今日のやる気リスト</h2>
+                <h2 class="font-semibold text-xl text-white leading-tight">今日のやる気リスト</h2>
             </div>
         </header>
         <!-- Page Content -->

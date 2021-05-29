@@ -18550,11 +18550,11 @@ var _hoisted_1 = {
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("header", {
-  "class": "bg-white shadow"
+  "class": "bg-indigo-600 shadow"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "mx-auto py-6 px-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
-  "class": "font-semibold text-xl text-gray-800 leading-tight"
+  "class": "font-semibold text-xl text-white leading-tight"
 }, "今日のやる気リスト")])], -1
 /* HOISTED */
 );
