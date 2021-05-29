@@ -17095,19 +17095,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              _context.next = 2;
               return liff.init({
                 liffId: _this.liffId
               });
 
-            case 3:
+            case 2:
               if (!liff.isLoggedIn()) liff.login();
-              _context.next = 6;
+              _context.next = 5;
               return liff.getProfile();
 
-            case 6:
+            case 5:
               profile = _context.sent;
+              _context.prev = 6;
               _context.next = 9;
               return axios.get("api/lineUsers/".concat(profile.userId)).then(function (response) {
                 return response.data;
@@ -17142,7 +17142,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 19:
               _context.prev = 19;
-              _context.t0 = _context["catch"](0);
+              _context.t0 = _context["catch"](6);
               alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！');
 
             case 22:
@@ -17155,7 +17155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 19, 22, 25]]);
+      }, _callee, null, [[6, 19, 22, 25]]);
     }))();
   },
   data: function data() {

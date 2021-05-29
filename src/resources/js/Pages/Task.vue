@@ -88,11 +88,10 @@ export default {
     props: { auth: Object, errors: Object, liffId: String },
 
     async mounted() {
+        await liff.init({ liffId: this.liffId })
+        if (!liff.isLoggedIn()) liff.login()
+        const profile = await liff.getProfile()
         try {
-            await liff.init({ liffId: this.liffId })
-            if (!liff.isLoggedIn()) liff.login()
-            const profile = await liff.getProfile()
-
             this.lineUser = await axios.get(`api/lineUsers/${profile.userId}`).then((response) => response.data)
             if (!this.lineUser) {
                 this.lineUser = await axios.post(`api/lineUsers`, profile).then((response) => response.data)
