@@ -16,9 +16,11 @@ class TaskController extends Controller
         );
     }
 
-    public function findAll(): array
+    public function findAllBylineUserId($lineUserId): array
     {
-        $tasks = Task::all();
+        $tasks = Task::where('line_user_id', $lineUserId)
+            ->whereDate('created_at', now())
+            ->get();
 
         $formatTasks = [];
         foreach ($tasks as $task) {

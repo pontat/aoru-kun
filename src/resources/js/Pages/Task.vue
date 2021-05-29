@@ -84,12 +84,13 @@ export default {
         await liff.init({ liffId: this.liffId })
         if (!liff.isLoggedIn()) liff.login()
         const profile = await liff.getProfile()
-        const lineUser = await axios.get(`api/lineUsers/${profile.userId}`)
-        this.tasks = await axios.get(`api/tasks`).then((response) => response.data)
+        this.lineUser = await axios.get(`api/lineUsers/${profile.userId}`).then((response) => response.data)
+        this.tasks = await axios.get(`api/tasks/${this.lineUser.id}`).then((response) => response.data)
     },
 
     data() {
         return {
+            lineUser: {},
             tasks: [],
             isNewFormShow: false,
             name: '',
@@ -111,7 +112,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post('api/tasks', { line_user_id: 14, name: this.name })
+                .post('api/tasks', { line_user_id: this.lineUser.id, name: this.name })
                 .catch((error) => alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！'))
 
             this.tasks = [...this.tasks, task.data]
@@ -124,7 +125,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post(`api/tasks/${editTask.id}`, { line_user_id: 14, name: editTask.name })
+                .post(`api/tasks/${editTask.id}`, { line_user_id: this.lineUser.id, name: editTask.name })
                 .catch((error) => alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！'))
 
             const setTask = this.tasks.find((setTask) => setTask.id === task.data.id)

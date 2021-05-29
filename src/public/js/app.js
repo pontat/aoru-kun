@@ -17090,7 +17090,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var profile, lineUser;
+      var profile;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -17108,12 +17108,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 5:
               profile = _context.sent;
               _context.next = 8;
-              return axios.get("api/lineUsers/".concat(profile.userId));
+              return axios.get("api/lineUsers/".concat(profile.userId)).then(function (response) {
+                return response.data;
+              });
 
             case 8:
-              lineUser = _context.sent;
+              _this.lineUser = _context.sent;
               _context.next = 11;
-              return axios.get("api/tasks").then(function (response) {
+              return axios.get("api/tasks/".concat(_this.lineUser.id)).then(function (response) {
                 return response.data;
               });
 
@@ -17130,6 +17132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      lineUser: {},
       tasks: [],
       isNewFormShow: false,
       name: ''
@@ -17166,7 +17169,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _context2.next = 5;
                 return axios.post('api/tasks', {
-                  line_user_id: 14,
+                  line_user_id: _this2.lineUser.id,
                   name: _this2.name
                 })["catch"](function (error) {
                   return alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！');
@@ -17207,7 +17210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _context3.next = 5;
                 return axios.post("api/tasks/".concat(editTask.id), {
-                  line_user_id: 14,
+                  line_user_id: _this3.lineUser.id,
                   name: editTask.name
                 })["catch"](function (error) {
                   return alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！');
