@@ -39,7 +39,8 @@ class TaskController extends Controller
     {
         $taskParams = $this->setTaskParams($request);
 
-        $task = new Task($taskParams);
+        $task = new Task();
+        $task->fill($taskParams);
         $task->save();
 
         return $task;
