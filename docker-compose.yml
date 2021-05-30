@@ -7,8 +7,8 @@ services:
       - '8080:8080'
     volumes:
       - ./src:/var/www
-  aoru-kun-app:
-    image: aoru-kun-app:latest
+  line-app:
+    image: line-app:latest
     ports:
       - '80:8080'
   db:
@@ -19,4 +19,4 @@ services:
       - ./db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: aorukun
+      MYSQL_DATABASE: line-app
