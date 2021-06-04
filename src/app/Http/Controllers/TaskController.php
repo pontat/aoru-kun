@@ -18,7 +18,7 @@ class TaskController extends Controller
         );
     }
 
-    public function findAllBylineUserIdAndTargetDate(Request $request, string $targetDate): array
+    public function findAllBylineUserIdAndTargetDate(string $targetDate): array
     {
         $tasks = Task::where('line_user_id', Auth::id())
             ->whereDate('created_at', new Carbon($targetDate))
