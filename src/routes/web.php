@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LineAuthController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/line-login', [LineAuthController::class, 'login'])->middleware('guest');
+
 Route::get('/tasks', [TaskController::class, 'index']);
+Route::get('/tasks/{targetDate}', [TaskController::class, 'findAllBylineUserIdAndTargetDate']);
+Route::post('tasks', [TaskController::class, 'create']);
+Route::put('tasks/{id}', [TaskController::class, 'update']);
 
 require __DIR__ . '/auth.php';

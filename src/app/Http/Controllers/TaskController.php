@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -16,10 +18,10 @@ class TaskController extends Controller
         );
     }
 
-    public function findAllBylineUserId($lineUserId): array
+    public function findAllBylineUserIdAndTargetDate(Request $request, string $targetDate): array
     {
-        $tasks = Task::where('line_user_id', $lineUserId)
-            ->whereDate('created_at', now())
+        $tasks = Task::where('line_user_id', Auth::id())
+            ->whereDate('created_at', new Carbon($targetDate))
             ->get();
 
         $formatTasks = [];
@@ -59,6 +61,9 @@ class TaskController extends Controller
 
     private function setTaskParams(Request $request): array
     {
-        return $request->only(['line_user_id', 'name']);
+        $params = $request->only('name');
+        $params['line_user_id'] = Auth::id();
+
+        return $params;
     }
 }

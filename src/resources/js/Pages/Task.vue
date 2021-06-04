@@ -81,6 +81,7 @@
 <script>
 import TaskButton from '../components/task/Button'
 import TaskLinkButton from '../components/task/LinkButton'
+import dayjs from 'dayjs'
 
 export default {
     components: { TaskButton, TaskLinkButton },
@@ -90,14 +91,15 @@ export default {
     async mounted() {
         await liff.init({ liffId: this.liffId })
         if (!liff.isLoggedIn()) liff.login()
-        const profile = await liff.getProfile()
-        try {
-            this.lineUser = await axios.get(`api/lineUsers/${profile.userId}`).then((response) => response.data)
-            if (!this.lineUser) {
-                this.lineUser = await axios.post(`api/lineUsers`, profile).then((response) => response.data)
-            }
 
-            this.tasks = await axios.get(`api/tasks/lineUsers/${this.lineUser.id}`).then((response) => response.data)
+        try {
+            const accessToken = liff.getAccessToken()
+            this.lineUser = await axios
+                .get(`line-login`, { headers: { Authorization: `Bearer ${accessToken}` } })
+                .then((response) => response.data)
+
+            const today = dayjs().format('YYYY-MM-DD')
+            this.tasks = await axios.get(`tasks/${today}`).then((response) => response.data)
         } catch (error) {
             alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！')
         } finally {
@@ -130,7 +132,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post('api/tasks', { line_user_id: this.lineUser.id, name: this.name })
+                .post('tasks', { name: this.name })
                 .catch((error) => alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！'))
 
             this.tasks = [...this.tasks, task.data]
@@ -143,7 +145,7 @@ export default {
             if (errors.length) return alert(errors.join(','))
 
             const task = await axios
-                .post(`api/tasks/${editTask.id}`, { line_user_id: this.lineUser.id, name: editTask.name })
+                .put(`tasks/${editTask.id}`, { name: editTask.name })
                 .catch((error) => alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！'))
 
             const setTask = this.tasks.find((setTask) => setTask.id === task.data.id)
