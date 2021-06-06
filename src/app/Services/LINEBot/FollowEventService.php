@@ -8,17 +8,10 @@ use LINE\LINEBot\Event\FollowEvent;
 
 class FollowEventService
 {
-    private $bot;
-
-    public function __construct(LINEBot $bot)
-    {
-        $this->bot = $bot;
-    }
-
-    public function execute(FollowEvent $event): string
+    public function execute(LINEBot $bot, FollowEvent $event): string
     {
         $lineId = $event->getUserId();
-        $profile = $this->bot->getProfile($lineId);
+        $profile = $bot->getProfile($lineId);
         if (!$profile->isSucceeded()) {
             logger()->info('failed to get profile. skip processing.');
             return '友達登録おおきに！！';

@@ -13,6 +13,20 @@ use LINE\LINEBot\SignatureValidator;
 
 class WebhookController extends Controller
 {
+    private $followEventService;
+    private $textMessageService;
+    private $unFollowEventService;
+
+    public function __construct(
+        FollowEventService $followEventService,
+        TextMessageService $textMessageService,
+        UnFollowEventService $unFollowEventService
+    ) {
+        $this->followEventService = $followEventService;
+        $this->textMessageService = $textMessageService;
+        $this->unFollowEventService = $unFollowEventService;
+    }
+
     /**
      * Webhook function
      *
@@ -39,16 +53,13 @@ class WebhookController extends Controller
 
             switch (true) {
                 case $event instanceof LINEBot\Event\FollowEvent:
-                    $service = new FollowEventService($bot);
-                    $reply_message = $service->execute($event);
+                    $reply_message = $this->followEventService->execute($bot, $event);
                     break;
                 case $event instanceof LINEBot\Event\MessageEvent\TextMessage:
-                    $service = new TextMessageService($bot);
-                    $reply_message = $service->execute($event);
+                    $reply_message = $this->textMessageService->execute($bot, $event);
                     break;
                 case $event instanceof LINEBot\Event\UnfollowEvent:
-                    $service = new UnFollowEventService($bot);
-                    $service->execute($event);
+                    $this->unFollowEventService->execute($bot, $event);
                     break;
                 default:
                     $body = $event->getEventBody();

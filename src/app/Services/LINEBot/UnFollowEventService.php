@@ -8,14 +8,7 @@ use LINE\LINEBot\Event\UnfollowEvent;
 
 class UnFollowEventService
 {
-    private $bot;
-
-    public function __construct(LINEBot $bot)
-    {
-        $this->bot = $bot;
-    }
-
-    public function execute(UnfollowEvent $event): void
+    public function execute(LINEBot $bot, UnfollowEvent $event): void
     {
         $lineId = $event->getUserId();
         LineUser::where('line_id', $lineId)->delete();

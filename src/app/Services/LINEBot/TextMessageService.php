@@ -7,14 +7,7 @@ use LINE\LINEBot\Event\MessageEvent\TextMessage;
 
 class TextMessageService
 {
-    private $bot;
-
-    public function __construct(LINEBot $bot)
-    {
-        $this->bot = $bot;
-    }
-
-    public function execute(TextMessage $event): string
+    public function execute(LINEBot $bot, TextMessage $event): string
     {
         return $event->getText();
     }
