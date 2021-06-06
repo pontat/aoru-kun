@@ -48,25 +48,25 @@ class WebhookController extends Controller
 
         $events = $bot->parseEventRequest($request->getContent(), $signature);
         foreach ($events as $event) {
-            $reply_token = $event->getReplyToken();
-            $reply_message = 'Not supported. [' . get_class($event) . '][' . $event->getType() . ']';
+            $replyToken = $event->getReplyToken();
 
             switch (true) {
                 case $event instanceof LINEBot\Event\FollowEvent:
-                    $reply_message = $this->followEventService->execute($bot, $event);
+                    $this->followEventService->execute($bot, $event, $replyToken);
                     break;
                 case $event instanceof LINEBot\Event\MessageEvent\TextMessage:
-                    $reply_message = $this->textMessageService->execute($bot, $event);
+                    $this->textMessageService->execute($bot, $event, $replyToken);
                     break;
                 case $event instanceof LINEBot\Event\UnfollowEvent:
                     $this->unFollowEventService->execute($bot, $event);
                     break;
                 default:
-                    $body = $event->getEventBody();
+                    $body = $event->getEvent();
                     logger()->warning('Unknown event. [' . get_class($event) . ']', compact('body'));
-            }
 
-            $bot->replyText($reply_token, $reply_message);
+                    $replyMessage = 'Not supported. [' . get_class($event) . '][' . $event->getType() . ']';
+                    $bot->replyText($replyToken, $replyMessage);
+            }
         }
     }
 }
