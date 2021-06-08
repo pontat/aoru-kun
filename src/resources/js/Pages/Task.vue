@@ -14,7 +14,12 @@
                 </div>
             </template>
             <template v-else>
-                <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in tasks" :key="task.id">
+                <div
+                    class="mx-2 mt-6 shadow rounded overflow-hidden"
+                    :class="task.is_completed ? 'bg-gray-200' : 'bg-white'"
+                    v-for="task in tasks"
+                    :key="task.id"
+                >
                     <div class="p-4 flex items-center justify-between">
                         <template v-if="!task.is_edit">
                             <h3
@@ -37,6 +42,7 @@
                                 >{{ task.name }}
                             </h3>
                             <task-button
+                                v-if="!task.is_completed"
                                 color="bg-green-600"
                                 hoverColor="hover:bg-green-500"
                                 class="ml-2 min-w-max"
@@ -44,6 +50,7 @@
                             >
                                 編集
                             </task-button>
+                            <task-button v-else color="bg-gray-600" class="ml-2 min-w-max">編集</task-button>
                         </template>
                         <template v-if="task.is_edit">
                             <input
