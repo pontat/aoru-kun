@@ -33,6 +33,7 @@ class TextMessageService
     private function achievementReport(LineUser $lineUser): TextMessageBuilder
     {
         $tasks = Task::where('line_user_id', $lineUser->id)
+            ->where('is_completed', false)
             ->whereDate('created_at', new Carbon())
             ->get();
 

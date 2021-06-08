@@ -30,6 +30,7 @@ class TaskController extends Controller
                 'id' => $task->id,
                 'line_user_id' => $task->line_user_id,
                 'name' => $task->name,
+                'is_completed' => $task->is_completed,
                 'is_edit' => false,
             ];
         }

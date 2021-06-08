@@ -17,8 +17,24 @@
                 <div class="mx-2 mt-6 bg-white shadow rounded overflow-hidden" v-for="task in tasks" :key="task.id">
                     <div class="p-4 flex items-center justify-between">
                         <template v-if="!task.is_edit">
-                            <h3 class="text-lg font-bold text-gray-800 leading-tight">
-                                {{ task.name }}
+                            <h3
+                                class="flex text-lg font-bold text-gray-800 leading-tight"
+                                :class="task.is_completed ? '' : 'ml-5'"
+                            >
+                                <svg
+                                    v-if="task.is_completed"
+                                    class="h-5 w-5 text-yellow-500"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                    /></svg
+                                >{{ task.name }}
                             </h3>
                             <task-button
                                 color="bg-green-600"
