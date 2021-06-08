@@ -17132,7 +17132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 14:
               _context.prev = 14;
               _context.t0 = _context["catch"](3);
-              alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！');
+              alert('表示に失敗した！またやり直してみてもらえると助かるな！');
 
             case 17:
               _context.prev = 17;
@@ -17189,7 +17189,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.post('tasks', {
                   name: _this2.name
                 })["catch"](function (error) {
-                  return alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！');
+                  return alert('登録に失敗した！またやり直してみてもらえると助かるな！');
                 });
 
               case 5:
@@ -17229,7 +17229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.put("tasks/".concat(editTask.id), {
                   name: editTask.name
                 })["catch"](function (error) {
-                  return alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！');
+                  return alert('更新に失敗した！またやり直してみてもらえると助かるな！');
                 });
 
               case 5:
@@ -17250,8 +17250,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     validateTask: function validateTask(name) {
       var errors = [];
-      if (!name.length || !name.match(/\S/g)) errors = [].concat(_toConsumableArray(errors), ['フォームが空っぽやで！']);
-      if (name.length > 255) errors = [].concat(_toConsumableArray(errors), ['内容は簡潔に！255文字以内で頼むわ！']);
+      if (!name.length || !name.match(/\S/g)) errors = [].concat(_toConsumableArray(errors), ['フォームが空っぽだよ！']);
+      if (name.length > 255) errors = [].concat(_toConsumableArray(errors), ['内容は簡潔に！255文字以内にしてね！']);
       return errors;
     }
   }

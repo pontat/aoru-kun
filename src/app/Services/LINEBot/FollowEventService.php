@@ -15,7 +15,7 @@ class FollowEventService
         $profile = $bot->getProfile($lineId);
         if (!$profile->isSucceeded()) {
             logger()->info('failed to get profile. skip processing.');
-            return $bot->replyText($replyToken, '友達登録おおきに！！');
+            return $bot->replyText($replyToken, '初めまして！！友達登録ありがとう！これからやる気を管理していくね！ファイト！');
         }
         $profile = $profile->getJSONDecodedBody();
         $lineUser = new LineUser();
@@ -27,7 +27,7 @@ class FollowEventService
 
         return $bot->replyText(
             $replyToken,
-            $lineUser->display_name . 'さん初めまして！！友達登録おおきに！！'
+            '初めまして！！友達登録ありがとう！これから' . $lineUser->display_name . 'さんのやる気を管理していくね！ファイト！'
         );
     }
 }

@@ -5,7 +5,6 @@ namespace App\Services\LINEBot;
 use App\Models\LineUser;
 use App\Models\Task;
 use Carbon\Carbon;
-use Exception;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
@@ -45,7 +44,7 @@ class TextMessageService
         }
         $quickReplyMessage = new QuickReplyMessageBuilder($quickReplyButtons);
 
-        return new TextMessageBuilder('どのタスクが終わった？', $quickReplyMessage);
+        return new TextMessageBuilder('どのタスクが終わったかな？', $quickReplyMessage);
     }
 
     private function taskComplete(LineUser $lineUser, string $text): TextMessageBuilder

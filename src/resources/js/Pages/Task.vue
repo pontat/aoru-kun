@@ -117,7 +117,7 @@ export default {
             const today = dayjs().format('YYYY-MM-DD')
             this.tasks = await axios.get(`tasks/${today}`).then((response) => response.data)
         } catch (error) {
-            alert('すまん！なんか上手く開けんかった！また出直してくれると助かるわ！')
+            alert('表示に失敗した！またやり直してみてもらえると助かるな！')
         } finally {
             this.loading = true
         }
@@ -149,7 +149,7 @@ export default {
 
             const task = await axios
                 .post('tasks', { name: this.name })
-                .catch((error) => alert('すまん！なんか上手く登録できひんかった！また出直してくれると助かるわ！'))
+                .catch((error) => alert('登録に失敗した！またやり直してみてもらえると助かるな！'))
 
             this.tasks = [...this.tasks, task.data]
             this.name = ''
@@ -162,7 +162,7 @@ export default {
 
             const task = await axios
                 .put(`tasks/${editTask.id}`, { name: editTask.name })
-                .catch((error) => alert('すまん！なんか上手く更新できひんかった！また出直してくれると助かるわ！'))
+                .catch((error) => alert('更新に失敗した！またやり直してみてもらえると助かるな！'))
 
             const setTask = this.tasks.find((setTask) => setTask.id === task.data.id)
             setTask.name = task.data.name
@@ -171,8 +171,8 @@ export default {
 
         validateTask(name) {
             let errors = []
-            if (!name.length || !name.match(/\S/g)) errors = [...errors, 'フォームが空っぽやで！']
-            if (name.length > 255) errors = [...errors, '内容は簡潔に！255文字以内で頼むわ！']
+            if (!name.length || !name.match(/\S/g)) errors = [...errors, 'フォームが空っぽだよ！']
+            if (name.length > 255) errors = [...errors, '内容は簡潔に！255文字以内にしてね！']
             return errors
         },
     },
