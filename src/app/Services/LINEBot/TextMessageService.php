@@ -31,10 +31,7 @@ class TextMessageService
 
     private function achievementReport(LineUser $lineUser): TextMessageBuilder
     {
-        $tasks = Task::where('line_user_id', $lineUser->id)
-            ->where('is_completed', false)
-            ->whereDate('created_at', new Carbon())
-            ->get();
+        $tasks = Task::lineUserIncompleteTargetDate($lineUser, new Carbon())->get();
 
         $quickReplyButtons = [];
         foreach ($tasks as $task) {
@@ -53,6 +50,13 @@ class TextMessageService
         $task = Task::where('line_user_id', $lineUser->id)->findOrFail($text);
         $task->fill(['is_completed' => true])->save();
 
-        return new TextMessageBuilder($task->name . 'のタスクを完了にしたよ！お疲れ様！');
+        $remainingTaskCount = Task::lineUserIncompleteTargetDate($lineUser, new Carbon())->count();
+
+        return new TextMessageBuilder(
+            $task->name . 'のタスクを完了にしたよ！お疲れ様！',
+            $remainingTaskCount === 0
+                ? '今日のタスクはこれで全部完了だよ！今日も一日お疲れ様でした！'
+                : '今日のタスクは残り' . $remainingTaskCount . '個だよ！ファイト！'
+        );
     }
 }
