@@ -16,9 +16,7 @@ COPY --from=nodeBuild /app/public /var/www/public/
 
 COPY --from=composer:2.0.13 /usr/bin/composer /usr/bin/composer
 RUN composer install --optimize-autoloader --no-dev
-RUN php artisan key:generate \
-    && php artisan config:cache \
-    && php artisan view:cache
+RUN php artisan key:generate
 
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 777 -R /var/www/storage/ && \
