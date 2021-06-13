@@ -2,7 +2,7 @@
     <div class="min-h-screen bg-gray-100">
         <!-- Page Heading -->
         <header class="bg-yellow-500 shadow">
-            <div class="mx-auto py-6 px-4">
+            <div class="mx-auto py-5 px-4">
                 <h2 class="font-semibold text-xl text-white leading-tight">今日のやる気リスト</h2>
             </div>
         </header>
