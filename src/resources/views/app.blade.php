@@ -17,7 +17,7 @@
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
-    @if (Request::is('tasks')) <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> @endif
+    @if (Request::is('tasks*')) <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> @endif
 </head>
 
 <body class="font-sans antialiased">
