@@ -125,11 +125,11 @@ export default {
         try {
             const accessToken = liff.getAccessToken()
             this.lineUser = await axios
-                .get(`line-login`, { headers: { Authorization: `Bearer ${accessToken}` } })
+                .get(`/line-login`, { headers: { Authorization: `Bearer ${accessToken}` } })
                 .then((response) => response.data)
 
             const today = dayjs().format('YYYY-MM-DD')
-            this.tasks = await axios.get(`tasks/${today}`).then((response) => response.data)
+            this.tasks = await axios.get(`/tasks/${today}`).then((response) => response.data)
         } catch (error) {
             alert('表示に失敗した！またやり直してみてもらえると助かるな！')
         } finally {
