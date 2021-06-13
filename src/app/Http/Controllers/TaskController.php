@@ -18,6 +18,14 @@ class TaskController extends Controller
         );
     }
 
+    public function history()
+    {
+        return Inertia::render(
+            'TaskHistory',
+            ['liffId' => env('LINE_LIFF_ID')]
+        );
+    }
+
     public function findAllByAuthUserAndTargetDate(string $targetDate): array
     {
         $tasks = Task::where('line_user_id', Auth::id())
@@ -36,6 +44,15 @@ class TaskController extends Controller
         }
 
         return $formatTasks;
+    }
+
+    public function findAllByAuthUserAndTargetMonth(string $targetMonth)
+    {
+        $tasks = Task::where('line_user_id', Auth::id())
+            ->whereMonth('created_at', new Carbon($targetMonth))
+            ->get();
+
+        return $tasks;
     }
 
     public function create(Request $request): Task
