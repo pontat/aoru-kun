@@ -33,8 +33,11 @@ Route::get('/dashboard', function () {
 Route::get('/line-login', [LineAuthController::class, 'login'])->middleware('guest');
 
 Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/tasks/{targetDate}', [TaskController::class, 'findAllByAuthUserAndTargetDate']);
-Route::post('tasks', [TaskController::class, 'create']);
-Route::put('tasks/{id}', [TaskController::class, 'update']);
+
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/tasks/{targetDate}', [TaskController::class, 'findAllByAuthUserAndTargetDate']);
+    Route::post('tasks', [TaskController::class, 'create']);
+    Route::put('tasks/{id}', [TaskController::class, 'update']);
+});
 
 require __DIR__ . '/auth.php';
