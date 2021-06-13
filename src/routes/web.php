@@ -36,8 +36,8 @@ Route::get('/tasks', [TaskController::class, 'index']);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/tasks/{targetDate}', [TaskController::class, 'findAllByAuthUserAndTargetDate']);
-    Route::post('tasks', [TaskController::class, 'create']);
-    Route::put('tasks/{id}', [TaskController::class, 'update']);
+    Route::post('/tasks', [TaskController::class, 'create']);
+    Route::put('/tasks/{id}', [TaskController::class, 'update']);
 });
 
 require __DIR__ . '/auth.php';
