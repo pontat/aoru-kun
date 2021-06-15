@@ -36,13 +36,17 @@ class TaskController extends Controller
         return $this->formatTask($tasks);
     }
 
-    public function findAllByAuthUserAndTargetMonth(string $targetMonth): array
+    public function findAllByAuthUserAndTargetMonth(string $targetMonth)
     {
         $tasks = Task::where('line_user_id', Auth::id())
             ->whereMonth('created_at', new Carbon($targetMonth))
             ->get();
 
-        return $this->formatTask($tasks);
+        $formatTasks = $this->formatTask($tasks);
+
+        $groupByTasks = collect($formatTasks)->groupBy('created_at');
+
+        return $groupByTasks;
     }
 
     public function create(Request $request): Task
