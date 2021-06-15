@@ -7,16 +7,16 @@
             </div>
         </header>
         <!-- Page Content -->
-        <main>
+        <main class="px-2 pb-6">
             <template v-if="!loading">
                 <div class="mt-6 flex justify-center">
                     <loader></loader>
                 </div>
             </template>
             <div v-else v-for="(tasks, key) in groupByTasks" :key="key">
-                <h3 class="mx-2 mt-6 flex justify-center text-lg font-bold text-gray-800 leading-tight">{{ key }}</h3>
+                <h3 class="mt-6 flex justify-center text-lg font-bold text-gray-800 leading-tight">{{ key }}</h3>
                 <div
-                    class="mx-2 mt-6 shadow rounded overflow-hidden"
+                    class="mt-6 shadow rounded overflow-hidden"
                     :class="task.is_completed ? 'bg-gray-200' : 'bg-white'"
                     v-for="task in tasks"
                     :key="task.id"

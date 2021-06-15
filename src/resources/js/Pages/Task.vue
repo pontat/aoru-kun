@@ -7,7 +7,7 @@
             </div>
         </header>
         <!-- Page Content -->
-        <main>
+        <main class="px-2 pb-6">
             <template v-if="!loading">
                 <div class="mt-6 flex justify-center">
                     <loader></loader>
@@ -15,7 +15,7 @@
             </template>
             <template v-else>
                 <div
-                    class="mx-2 mt-6 shadow rounded overflow-hidden"
+                    class="mt-6 shadow rounded overflow-hidden"
                     :class="task.is_completed ? 'bg-gray-200' : 'bg-white'"
                     v-for="task in tasks"
                     :key="task.id"
@@ -69,7 +69,7 @@
                         </template>
                     </div>
                 </div>
-                <div class="mx-2 my-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
+                <div class="mt-6 shadow rounded overflow-hidden" v-show="isNewFormShow">
                     <div class="p-4 bg-white space-y-6">
                         <input
                             type="text"
@@ -86,7 +86,7 @@
                         </task-button>
                     </div>
                 </div>
-                <div class="flex my-6" v-show="!isNewFormShow">
+                <div class="flex mt-6" v-show="!isNewFormShow">
                     <task-button
                         color="flex justify-center items-center bg-indigo-600"
                         hoverColor="hover:bg-indigo-500"
