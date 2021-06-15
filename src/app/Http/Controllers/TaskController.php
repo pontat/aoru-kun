@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -32,27 +33,16 @@ class TaskController extends Controller
             ->whereDate('created_at', new Carbon($targetDate))
             ->get();
 
-        $formatTasks = [];
-        foreach ($tasks as $task) {
-            $formatTasks[] = [
-                'id' => $task->id,
-                'line_user_id' => $task->line_user_id,
-                'name' => $task->name,
-                'is_completed' => $task->is_completed,
-                'is_edit' => false,
-            ];
-        }
-
-        return $formatTasks;
+        return $this->formatTask($tasks);
     }
 
-    public function findAllByAuthUserAndTargetMonth(string $targetMonth)
+    public function findAllByAuthUserAndTargetMonth(string $targetMonth): array
     {
         $tasks = Task::where('line_user_id', Auth::id())
             ->whereMonth('created_at', new Carbon($targetMonth))
             ->get();
 
-        return $tasks;
+        return $this->formatTask($tasks);
     }
 
     public function create(Request $request): Task
@@ -75,6 +65,23 @@ class TaskController extends Controller
         $task->save();
 
         return $task;
+    }
+
+    private function formatTask(Collection $tasks): array
+    {
+        $formatTasks = [];
+        foreach ($tasks as $task) {
+            $formatTasks[] = [
+                'id' => $task->id,
+                'line_user_id' => $task->line_user_id,
+                'name' => $task->name,
+                'is_completed' => $task->is_completed,
+                'created_at' => $task->created_at->format('Y-m-d'),
+                'is_edit' => false,
+            ];
+        }
+
+        return $formatTasks;
     }
 
     private function setTaskParams(Request $request): array
