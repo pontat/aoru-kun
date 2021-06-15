@@ -34,14 +34,20 @@ class TextMessageService
         $tasks = Task::lineUserIncompleteTargetDate($lineUser, new Carbon())->get();
 
         $quickReplyButtons = [];
-        foreach ($tasks as $task) {
-            $messageTemplate = new MessageTemplateActionBuilder($task->name, '> ' . $task->id);
+        foreach ($tasks as $index => $task) {
+            if ($index > 12) break;
+            $messageTemplate = mb_strlen($task->name) > 20
+                ? new MessageTemplateActionBuilder(mb_substr($task->name, 0, 17, "UTF-8") . '...', '> ' . $task->id)
+                : new MessageTemplateActionBuilder($task->name, '> ' . $task->id);
+
             $quickReplyButton = new QuickReplyButtonBuilder($messageTemplate);
             $quickReplyButtons[] = $quickReplyButton;
         }
         $quickReplyMessage = new QuickReplyMessageBuilder($quickReplyButtons);
 
-        return new TextMessageBuilder('どのタスクが終わったかな？', $quickReplyMessage);
+        return $tasks->count() > 13
+            ? new TextMessageBuilder('どのタスクが終わったかな？※先頭13個まで表示してるよ！', $quickReplyMessage)
+            : new TextMessageBuilder('どのタスクが終わったかな？', $quickReplyMessage);
     }
 
     private function taskComplete(LineUser $lineUser, string $text): TextMessageBuilder
