@@ -24,6 +24,8 @@ class TextMessageService
             $textMessage = $this->achievementReport($lineUser);
         } elseif (preg_match('/> /', $text)) {
             $textMessage = $this->taskComplete($lineUser, $text);
+        } else {
+            $textMessage = $this->customMessage($text);
         }
 
         $bot->replyMessage($replyToken, $textMessage);
@@ -64,5 +66,42 @@ class TextMessageService
                 ? '今日のタスクはこれで全部完了だよ！今日も一日お疲れ様でした！'
                 : '今日のタスクは残り' . $remainingTaskCount . '個だよ！ファイト！'
         );
+    }
+
+    private function customMessage(string $text): TextMessageBuilder
+    {
+        $negativeNouns = [
+            'やる気',
+            '集中',
+            '勉強',
+        ];
+
+        $negativeVerbs = [
+            '無い',
+            'ない',
+            'キツイ',
+            'キツい',
+            'きつい',
+            '辛い',
+            'ツライ',
+            'ツラい',
+            'つらい',
+        ];
+
+        $hasNegativeNouns = false;
+        foreach ($negativeNouns as $nouns) {
+            if (strpos($text, $nouns) !== false) $hasNegativeNouns = true;
+        }
+
+        $hasNegativeVerb = false;
+        foreach ($negativeVerbs as $verb) {
+            if (strpos($text, $verb) !== false) $hasNegativeVerb = true;
+        }
+
+        if ($hasNegativeNouns && $hasNegativeVerb) {
+            return new TextMessageBuilder('「もし今日が人生最後の日だったら、今日やることは本当にしたいことなのか？」この問いに「NO」が何日も続くのなら、なにかを変えなくてはならない。', '参照:Amazon  Steve Jobs (English Edition)  https://amzn.to/3cVuxve');
+        }
+
+        return new TextMessageBuilder('今日も一日頑張ろう！ファイト！');
     }
 }
