@@ -18670,7 +18670,7 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = {
   key: 0,
-  "class": "h-5 w-5 text-yellow-500",
+  "class": "flex-none h-5 w-5 text-yellow-500",
   fill: "none",
   viewBox: "0 0 24 24",
   stroke: "currentColor"
@@ -18736,14 +18736,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: task.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [!task.is_edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       key: 0
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
-      "class": ["flex text-lg font-bold text-gray-800 leading-tight", task.is_completed ? '' : 'ml-5']
-    }, [task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("svg", _hoisted_6, [_hoisted_7])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.name), 1
-    /* TEXT */
-    )], 2
-    /* CLASS */
+    }, [task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("svg", _hoisted_6, [_hoisted_7])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
+      "class": ["flex-1 text-lg font-bold text-gray-800 leading-tight", task.is_completed ? '' : 'ml-5']
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.name), 3
+    /* TEXT, CLASS */
     ), !task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_task_button, {
-      key: 0,
+      key: 1,
       color: "bg-green-600",
       hoverColor: "hover:bg-green-500",
       "class": "ml-2 min-w-max",
@@ -18760,7 +18758,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, 1032
     /* PROPS, DYNAMIC_SLOTS */
     , ["onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_task_button, {
-      key: 1,
+      key: 2,
       color: "bg-gray-600",
       "class": "ml-2 min-w-max"
     }, {
@@ -18776,7 +18774,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: 1
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
       type: "text",
-      "class": "w-full focus:ring-blue-500 focus:border-blue-500 shadow-sm border-gray-300 rounded",
+      "class": "\n                                    w-full\n                                    focus:ring-blue-500\n                                    focus:border-blue-500\n                                    shadow-sm\n                                    border-gray-300\n                                    rounded\n                                ",
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return task.name = $event;
       }
@@ -18906,7 +18904,7 @@ var _hoisted_6 = {
 };
 var _hoisted_7 = {
   key: 0,
-  "class": "h-5 w-5 text-yellow-500",
+  "class": "flex-none h-5 w-5 text-yellow-500",
   fill: "none",
   viewBox: "0 0 24 24",
   stroke: "currentColor"
@@ -18935,12 +18933,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
         "class": ["mt-6 shadow rounded overflow-hidden", task.is_completed ? 'bg-gray-200' : 'bg-white'],
         key: task.id
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
-        "class": ["flex text-lg font-bold text-gray-800 leading-tight", task.is_completed ? '' : 'ml-5']
-      }, [task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("svg", _hoisted_7, [_hoisted_8])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.name), 1
-      /* TEXT */
-      )], 2
-      /* CLASS */
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("svg", _hoisted_7, [_hoisted_8])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
+        "class": ["flex-1 text-lg font-bold text-gray-800 leading-tight", task.is_completed ? '' : 'ml-5']
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.name), 3
+      /* TEXT, CLASS */
       )])], 2
       /* CLASS */
       );
