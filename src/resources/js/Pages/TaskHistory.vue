@@ -14,7 +14,9 @@
                 </div>
             </template>
             <div v-else v-for="(tasks, key) in groupByTasks" :key="key">
-                <h3 class="mt-6 flex justify-center text-lg font-bold text-gray-800 leading-tight">{{ key }}</h3>
+                <h3 class="mt-6 flex justify-center text-lg font-bold text-gray-800 leading-tight">
+                    {{ formatDate(key) }}
+                </h3>
                 <div
                     class="mt-6 shadow rounded overflow-hidden"
                     :class="task.is_completed ? 'bg-gray-200' : 'bg-white'"
@@ -54,6 +56,7 @@ import Loader from '../components/task/Loader'
 import TaskButton from '../components/task/Button'
 import TaskLinkButton from '../components/task/LinkButton'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
 
 export default {
     components: { TaskButton, TaskLinkButton, Loader },
@@ -87,6 +90,11 @@ export default {
         }
     },
 
-    methods: {},
+    methods: {
+        formatDate(date) {
+            dayjs.locale('ja')
+            return dayjs(date).format('YYYY/MM/DD(ddd)')
+        },
+    },
 }
 </script>
