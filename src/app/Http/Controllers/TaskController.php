@@ -39,6 +39,7 @@ class TaskController extends Controller
     public function findAllByAuthUserAndTargetMonth(string $targetMonth)
     {
         $tasks = Task::where('line_user_id', Auth::id())
+            ->whereYear('created_at', new Carbon($targetMonth))
             ->whereMonth('created_at', new Carbon($targetMonth))
             ->get();
 
