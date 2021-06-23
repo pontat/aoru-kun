@@ -8,7 +8,7 @@
         </header>
         <!-- Page Content -->
         <main class="px-2 pb-6">
-            <template v-if="!loading">
+            <template v-if="loading">
                 <div class="mt-6 flex justify-center">
                     <loader></loader>
                 </div>
@@ -142,13 +142,13 @@ export default {
         } catch (error) {
             alert('表示に失敗した！またやり直してみてもらえると助かるな！')
         } finally {
-            this.loading = true
+            this.loading = false
         }
     },
 
     data() {
         return {
-            loading: false,
+            loading: true,
             lineUser: {},
             tasks: [],
             isNewFormShow: false,

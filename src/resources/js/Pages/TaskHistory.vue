@@ -24,7 +24,7 @@
                     <option v-for="month in months" :key="month">{{ month }}</option>
                 </select>
             </div>
-            <template v-if="!loading">
+            <template v-if="loading">
                 <div class="mt-6 flex justify-center">
                     <loader></loader>
                 </div>
@@ -96,13 +96,13 @@ export default {
         } catch (error) {
             alert('表示に失敗した！またやり直してみてもらえると助かるな！')
         } finally {
-            this.loading = true
+            this.loading = false
         }
     },
 
     data() {
         return {
-            loading: false,
+            loading: true,
             targetYear: dayjs().year(),
             targetMonth: dayjs().month() + 1,
             months: [...Array(12).keys()].map((i) => ++i),
@@ -128,13 +128,13 @@ export default {
         },
         async fetchGroupByTasks() {
             try {
-                this.loading = false
+                this.loading = true
                 const thisMonth = dayjs(`${this.targetYear}-${this.targetMonth}`).format('YYYY-MM')
                 this.groupByTasks = await axios.get(`/tasks/history/${thisMonth}`).then((response) => response.data)
             } catch (error) {
                 alert('表示に失敗した！またやり直してみてもらえると助かるな！')
             } finally {
-                this.loading = true
+                this.loading = false
             }
         },
     },
