@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/tasks/{targetDate}', [TaskController::class, 'findAllByAuthUserAndTargetDate']);
     Route::post('/tasks', [TaskController::class, 'create']);
     Route::put('/tasks/{id}', [TaskController::class, 'update']);
+    Route::put('/tasks/complete/{id}', [TaskController::class, 'complete']);
 
     Route::get('/tasks/history/{targetMonth}', [TaskController::class, 'findAllByAuthUserAndTargetMonth']);
 });

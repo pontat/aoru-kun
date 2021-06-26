@@ -17441,6 +17441,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2, null, [[0, 8, 11, 14]]);
       }))();
+    },
+    completeTask: function completeTask(editTask) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var task, thisMonth;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.put("/tasks/complete/".concat(editTask.id), {
+                  name: editTask.name
+                })["catch"](function (error) {
+                  return alert('更新に失敗した！またやり直してみてもらえると助かるな！');
+                });
+
+              case 2:
+                task = _context3.sent;
+                thisMonth = dayjs__WEBPACK_IMPORTED_MODULE_4___default()("".concat(_this3.targetYear, "-").concat(_this3.targetMonth)).format('YYYY-MM');
+                _context3.next = 6;
+                return axios.get("/tasks/history/".concat(thisMonth)).then(function (response) {
+                  return response.data;
+                });
+
+              case 6:
+                _this3.groupByTasks = _context3.sent;
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 });
@@ -18998,8 +19033,14 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 達成 ");
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("達成");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_loader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("loader");
+
+  var _component_task_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("task-button");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Heading "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Page Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("main", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
     type: "text",
@@ -19048,7 +19089,35 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": ["flex-1 text-lg font-bold text-gray-800 leading-tight", task.is_completed ? '' : 'ml-5']
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.name), 3
       /* TEXT, CLASS */
-      )])], 2
+      ), !task.is_completed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_task_button, {
+        key: 1,
+        color: "bg-green-600",
+        hoverColor: "hover:bg-green-500",
+        "class": "ml-2 min-w-max",
+        onClick: function onClick($event) {
+          return $options.completeTask(task);
+        }
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_10];
+        }),
+        _: 2
+        /* DYNAMIC */
+
+      }, 1032
+      /* PROPS, DYNAMIC_SLOTS */
+      , ["onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_task_button, {
+        key: 2,
+        color: "bg-gray-600",
+        "class": "ml-2 min-w-max"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_11];
+        }),
+        _: 1
+        /* STABLE */
+
+      }))])], 2
       /* CLASS */
       );
     }), 128

@@ -72,6 +72,15 @@ class TaskController extends Controller
         return $task;
     }
 
+    public function complete(int $taskId): Task
+    {
+        $task = Task::findOrFail($taskId);
+        $task->fill(['is_completed' => true]);
+        $task->save();
+
+        return $task;
+    }
+
     private function formatTask(Collection $tasks): array
     {
         $formatTasks = [];

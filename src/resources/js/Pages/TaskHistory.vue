@@ -61,6 +61,16 @@
                             >
                                 {{ task.name }}
                             </h3>
+                            <task-button
+                                v-if="!task.is_completed"
+                                color="bg-green-600"
+                                hoverColor="hover:bg-green-500"
+                                class="ml-2 min-w-max"
+                                @click="completeTask(task)"
+                            >
+                                達成
+                            </task-button>
+                            <task-button v-else color="bg-gray-600" class="ml-2 min-w-max">達成</task-button>
                         </div>
                     </div>
                 </div>
@@ -136,6 +146,14 @@ export default {
             } finally {
                 this.loading = false
             }
+        },
+        async completeTask(editTask) {
+            const task = await axios
+                .put(`/tasks/complete/${editTask.id}`, { name: editTask.name })
+                .catch((error) => alert('更新に失敗した！またやり直してみてもらえると助かるな！'))
+
+            const thisMonth = dayjs(`${this.targetYear}-${this.targetMonth}`).format('YYYY-MM')
+            this.groupByTasks = await axios.get(`/tasks/history/${thisMonth}`).then((response) => response.data)
         },
     },
 }
