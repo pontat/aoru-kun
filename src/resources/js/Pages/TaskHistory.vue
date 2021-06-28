@@ -30,6 +30,9 @@
                 </div>
             </template>
             <template v-else>
+                <div class="mt-6">
+                    <chart :group-by-tasks="groupByTasks"></chart>
+                </div>
                 <div v-for="(tasks, key) in groupByTasks" :key="key">
                     <h3 class="mt-6 flex justify-center text-lg font-bold text-gray-800 leading-tight">
                         {{ formatDate(key) }}
@@ -80,6 +83,7 @@
 </template>
 
 <script>
+import Chart from '../components/task/Chart'
 import Loader from '../components/task/Loader'
 import TaskButton from '../components/task/Button'
 import TaskLinkButton from '../components/task/LinkButton'
@@ -87,7 +91,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/ja'
 
 export default {
-    components: { TaskButton, TaskLinkButton, Loader },
+    components: { Chart, Loader, TaskButton, TaskLinkButton },
 
     props: { auth: Object, errors: Object, liffId: String },
 
@@ -152,8 +156,7 @@ export default {
                 .put(`/tasks/complete/${editTask.id}`, { name: editTask.name })
                 .catch((error) => alert('更新に失敗した！またやり直してみてもらえると助かるな！'))
 
-            const thisMonth = dayjs(`${this.targetYear}-${this.targetMonth}`).format('YYYY-MM')
-            this.groupByTasks = await axios.get(`/tasks/history/${thisMonth}`).then((response) => response.data)
+            this.fetchGroupByTasks()
         },
     },
 }
