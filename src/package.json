@@ -28,6 +28,8 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@j-t-mcc/vue3-chartjs": "^1.1.2",
+        "chart.js": "^3.4.0",
         "dayjs": "^1.10.5"
     }
 }
